@@ -1,7 +1,6 @@
 library(ggplot2)
 library(sf)
 library(dplyr)
-library(purrr)
 library(here)
 
 # join maps together
@@ -36,12 +35,6 @@ data <- tribble(
 map_with_data <- map |>
   left_join(data, by = "region") |>
   mutate(label = gsub(pattern = " ", replacement = "\n", x = region))
-
-map_with_data <- map_with_data |>
-  mutate(
-    lon=map_dbl(geometry, ~st_centroid(.x)[[1]]),
-    lat=map_dbl(geometry, ~st_centroid(.x)[[2]])
-  )
 
 p <- ggplot(data = map_with_data) +
   # lwd controls the size of the line, use 0 to eliminate it
