@@ -15,10 +15,6 @@ regions_map <- st_read("regions_map") |>
 map <- countries_map |>
   union_all(regions_map)
 
-# ireland
-# contron negre per dividirho tot
-# min and max of the scale
-
 # data to visualise (EDIT IT or LOAD YOUR OWN DATA)
 data <- tribble(
   ~ region, ~ value,
@@ -47,9 +43,9 @@ map_with_data <- map_with_data |>
     lat=map_dbl(geometry, ~st_centroid(.x)[[2]])
   )
 
-p <- ggplot() +
+p <- ggplot(data = map_with_data) +
   # lwd controls the size of the line, use 0 to eliminate it
-  geom_sf(data = map_with_data, mapping = aes(fill = value), lwd = 0.25) +
+  geom_sf(mapping = aes(fill = value), lwd = 0.25, color = "black") +
   theme_void() +
   theme(
     plot.background = ggplot2::element_rect(fill = "white", color = NA),
@@ -60,20 +56,20 @@ p <- ggplot() +
     # you need at least two for min and max
     palette = c("#FEE0D2", "#FC9272", "#DE2D26"),
     # title
-    name = "My value"
+    name = "My value",
+    # to control limits of the color bar (if eliminated min and max are used)
+    limits = c(10, 40)
   )
 
-# visualise into the plot panel
+# to add ireland map
+ireland_map <- st_read("ireland_map")
+p <- p +
+  geom_sf(data = ireland_map, fill = "#ededed", lwd = 0.25, color = "black")
+
+# visualise in the plot panel
 p
 
 # save it into a file
 ggsave(filename = here("my_map.png"), plot = p)
 # you can customise, dpi (resolution), width, height of the plot with the
 # appropriate arguments
-
-# to add names for the regions
-# geom_text(
-#   data = map_with_data,
-#   mapping = aes(x = lon, y = lat, label = label),
-#   size = 2
-# )
