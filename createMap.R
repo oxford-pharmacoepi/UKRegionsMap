@@ -45,9 +45,9 @@ p <- ggplot(data = map_with_data) +
     panel.background = ggplot2::element_rect(fill = "white", color = NA)
   ) +
   scale_fill_continuous(
-    # edit colour scale, you can add as many colours that you want.
-    # you need at least two for min and max
-    palette = c("#FEE0D2", "#FC9272", "#DE2D26"),
+    # edit colour scale, you can add two colors, one for the min and one for the max
+    low = "#FEE0D2",
+    high = "#DE2D26",
     # title
     name = "My value",
     # to control limits of the color bar (if eliminated min and max are used)
