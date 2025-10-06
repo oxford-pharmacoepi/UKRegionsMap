@@ -51,7 +51,8 @@ p <- ggplot(data = map_with_data) +
     # title
     name = "My value",
     # to control limits of the color bar (if eliminated min and max are used)
-    limits = c(10, 40)
+    limits = c(10, 40),
+    na.value = "white"  # regions with no data will be white
   )
 
 # to add ireland map
