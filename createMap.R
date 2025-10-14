@@ -45,11 +45,12 @@ p <- ggplot(data = map_with_data) +
     panel.background = ggplot2::element_rect(fill = "white", color = NA)
   ) +
   scale_fill_continuous(
-    # edit colour scale, you can add two colors, one for the min and one for the max
-    low = "#FEE0D2",
-    high = "#DE2D26",
+    # edit the scale
+    type = "viridis",
+    direction = -1,
+    option = "mako",
     # title
-    name = "My value",
+    name = "Prevalence(%)",
     # to control limits of the color bar (if eliminated min and max are used)
     limits = c(10, 40)
   )
@@ -57,7 +58,7 @@ p <- ggplot(data = map_with_data) +
 # to add ireland map
 ireland_map <- st_read("ireland_map")
 p <- p +
-  geom_sf(data = ireland_map, fill = "#ededed", lwd = 0.25, color = "black")
+  geom_sf(data = ireland_map, fill = "#ffffff", lwd = 0.25, color = "black")
 
 # visualise in the plot panel
 p
